@@ -18,6 +18,7 @@ const NewsListBlock = styled.div`
 `;
 
 export default function NewsList({category}) {
+    // const [articles, setArticles] = useState([""])
   const [loading, response, error] = usePromise(() => {
     const query = category === 'all'? '': `&category=${category}`
     return axios.get(`https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=cb4555c8522743e995a574b229d36f8c`,)  
@@ -27,7 +28,7 @@ export default function NewsList({category}) {
       return <NewsListBlock>loading...</NewsListBlock>
   }
 
-  if(response === false) {
+  if(response === null) {
       return null
   }
 
@@ -35,7 +36,12 @@ export default function NewsList({category}) {
       return <NewsListBlock>error!</NewsListBlock>
   }
   
-  const {articles} = response.data || []
+//   const {articles} = response.data || []
+// if(response === null) {
+//     console.log('처음이라 널이에요');
+// }
+//   console.log(response);
+  const {articles} = response.data 
   return (
 
       <NewsListBlock>
