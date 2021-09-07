@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "../../node_modules/axios/index";
+import usePromise from '../lib/usePromise';
 import NewsItem from "./NewsItem";
 
 const NewsListBlock = styled.div`
@@ -17,37 +18,26 @@ const NewsListBlock = styled.div`
 `;
 
 export default function NewsList({category}) {
-
-  const [articles, setArticles] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-          const query = category === 'all' ? '' : `&category=${category}`
-        const response = await axios.get(
-          `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=cb4555c8522743e995a574b229d36f8c`
-        );
-        setArticles(response.data.articles);
-      } catch (e) {
-        console.log(e);
-      }
-      setLoading(false);
-    };
-
-    fetchData();
-  }, [category]);
+  const [loading, response, error] = usePromise(() => {
+    const query = category === 'all'? '': `&category=${category}`
+    return axios.get(`https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=cb4555c8522743e995a574b229d36f8c`,)  
+  }, [category])
 
   if(loading === true) {
       return <NewsListBlock>loading...</NewsListBlock>
   }
 
-  if (articles === "") {
-      return ""
+  if(response === false) {
+      return null
   }
 
+  if (error) {
+      return <NewsListBlock>error!</NewsListBlock>
+  }
+  
+  const {articles} = response.data || []
   return (
+
       <NewsListBlock>
           {articles.map(article => (
               <NewsItem key={article.url} article={article}></NewsItem>
