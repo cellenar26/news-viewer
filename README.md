@@ -1,7 +1,7 @@
 # The news
 ## 목표
 - react 기반의 웹 어플리케이션에서 비동기 요청 및 응답 해결의 이해.
-- The news api와 이를 활용한 웹 사이트를 클론 코딩
+- [News api](https://newsapi.org/)와 이를 활용한 [react 프로젝트](https://github.com/gilbutITbook/080203/tree/master/14/news-viewer)를 클론 코딩
 
 ## 구현 기능
 - **[x] 카테고리 선택 기능**
