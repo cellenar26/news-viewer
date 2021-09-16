@@ -19,7 +19,7 @@
 const {articles} = response.data
 // NewsList.js
 ~~~
-**해결**
+**해결** <br />
 1.articles 가 null 이면 빈 배열을 초기값으로 준다.
 ~~~
 const {articles} = response.data || []
