@@ -13,7 +13,7 @@
     
 ## 발생한 문제점
 ### 1.Cannot read property 'data' of null
-**원인** 
+**원인** <br />
 최초 렌더링 할 때 api 응답의 결과가 null이므로 "Cannot read property 'data' of null" 에러 발생.
 ~~~
 const {articles} = response.data
@@ -40,7 +40,9 @@ if(response === null) {
   }
 // NewsList.js
 ~~~
-
+### 2.배포 후 426 error 발생
+**원인**	<br />	
+newsapi.org 정책으로 인해 local에서만 가능함. [다음](https://bit.ly/3Ap4x4Z)참조.
 ## 생각해볼 만한 것
 - 추가 해볼만한 기능은 무엇이 있을까.
 - response가 아예 null이 되지 않게 할 방법은 무엇이 있을까.
