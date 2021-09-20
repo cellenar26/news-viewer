@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# The news
+## 목표
+- react 기반의 웹 어플리케이션에서 비동기 요청 및 응답 해결의 이해.
+- [News api](https://newsapi.org/)와 이를 활용한 [react 프로젝트](https://github.com/gilbutITbook/080203/tree/master/14/news-viewer)를 클론 코딩
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 구현 기능
+- [x] **카테고리 선택 기능**
+	react-router-dom으로 사용자의 선택에 따라 카테고리 변경 구현.
+- [x] **카테고리 별 뉴스 요청 기능**
+	선택한 카테고리를 props로 전송 및 useEffect로 요청 전송.
+- [x] **응답 결과 처리 기능**
+	요청의 결과를 처리하여 화면에 렌더링.
+    
+## 발생한 문제점
+### 1.Cannot read property 'data' of null
+**원인** 
+최초 렌더링 할 때 api 응답의 결과가 null이므로 "Cannot read property 'data' of null" 에러 발생.
+~~~
+const {articles} = response.data
+// NewsList.js
+~~~
+**해결** <br />
+1.articles 가 null 이면 빈 배열을 초기값으로 준다.
+~~~
+const {articles} = response.data || []
+// NewsList.js
+~~~
+2.response === null 이면 return null이 되게 한다.
+기존에 아래처럼 작성된 구문이 있었다.
+~~~
+if(response === false) {
+return null 
+}
+// NewsList.js
+~~~
+위 비교문을 아래로 수정한다.
+~~~
+if(response === null) {
+      return null
+  }
+// NewsList.js
+~~~
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 생각해볼 만한 것
+- 추가 해볼만한 기능은 무엇이 있을까.
+- response가 아예 null이 되지 않게 할 방법은 무엇이 있을까.
